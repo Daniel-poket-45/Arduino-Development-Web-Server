@@ -1,53 +1,48 @@
-#Automated compiler for embedded web server
+#Automated compiler for ADWS - Arduino Development Web Server
 
 #############################
 #  COMPILER CONFIG SECTION  #
 #############################
 
-#Executable name
-TARGET = web-test
-
-#C++ compiler
+TARGET = local-test
 CXX = clang++
-
-#Compiler flags/args
 CXXFLAGS = -Wall
 
-
+AR = ar
+ARFLAGS = rcs
 
 ###########################
 #  LINKER CONFIG SECTION  #
 ###########################
 
-#Header directories
-INCLUDE_DIRS = -Ilibs
+INCLUDE_DIRS = -Iinclude
+LIB_DIRS = -Llib
 
-              
-
-#Libs directories
-#LIB_DIRS= -Llibs
-
-
-
-#Included libraries (order matters)
-#LIBS= -l
+STATIC_LIBS = $(wildcard lib/*.a)
+DYNAMIC_LIBS= -lSDL3 -lGL
 
 	
+##############################
+#    SOURCE FILES SECTION    #
+##############################
 
+#Source files
+SRC = $(wildcard src/*.cpp)
 
 ##############################
 #  DIRECTIVE CONFIG SECTION  #
 ##############################
 
-#Source files
-src = src/main.cpp
-
 all:
-	@echo $(shell date): Compiling WEB-SERVER [web-test] at $(shell hostname) as $(shell whoami)
-	@$(CXX) $(CXXFLAGS) -o $(TARGET) $(src) $(INCLUDE_DIRS) $(LIB_DIRS) $(LIBS)
-	@echo WEB-SERVER [web-test] compiled! Executable name: $(TARGET)
+	@echo $(shell date): Compiling ADWS [local-test] at $(shell hostname) as $(shell whoami)
+	@$(CXX) $(CXXFLAGS) $(SRC) $(STATIC_LIBS) -o $(TARGET) $(INCLUDE_DIRS) $(LIB_DIRS) $(DYNAMIC_LIBS)
+	@echo ADWS [local-test] compiled! Executable name: $(TARGET)
 
 run:
-	@echo $(shell date): Runing WEB-SERVER [web-test] at $(shell hostname) via make directive as $(shell whoami)
+	@echo $(shell date): Running ADWS [local-test] at $(shell hostname) via make directive as $(shell whoami)
 	@./$(TARGET)
 	@echo Test completed!
+clean:
+	@echo $(shell date): Cleaning ADWS [local-test] at $(shell hostname) via make directive as $(shell whoami)
+	@rm -f $(TARGET)
+	@echo Clean completed!
