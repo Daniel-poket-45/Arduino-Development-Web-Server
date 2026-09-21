@@ -28,6 +28,7 @@ DYNAMIC_LIBS= -lSDL3 -lGL
 
 #Source files
 SRC = $(wildcard src/*.cpp)
+LIB_OBJS = $(wildcard obj/*.o)
 
 ##############################
 #  DIRECTIVE CONFIG SECTION  #
@@ -35,7 +36,7 @@ SRC = $(wildcard src/*.cpp)
 
 all:
 	@echo $(shell date): Compiling ADWS [local-test] at $(shell hostname) as $(shell whoami)
-	@$(CXX) $(CXXFLAGS) $(SRC) $(STATIC_LIBS) -o $(TARGET) $(INCLUDE_DIRS) $(LIB_DIRS) $(DYNAMIC_LIBS)
+	@$(CXX) $(CXXFLAGS) $(SRC) $(LIB_OBJS) $(STATIC_LIBS) -o $(TARGET) $(INCLUDE_DIRS) $(LIB_DIRS) $(DYNAMIC_LIBS)
 	@echo ADWS [local-test] compiled! Executable name: $(TARGET)
 
 run:
