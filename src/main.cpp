@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <stdio.h>
+#include <vector>
 #include <SDL3/SDL.h>
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_sdl3.h>
